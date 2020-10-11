@@ -1,3 +1,6 @@
+backend/config/db.js
+backend/config/jwtSecret.js
+
 # Logs
 logs
 *.log
