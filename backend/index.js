@@ -29,14 +29,27 @@ app.use(bodyParser.json());
 
 app.use(morgan("dev")); // configire morgan
 
-app.get("/", (req, res) => {
-    console.log("ffhf");
-});
-
 const userRoutes = require("./route/user"); //bring in our user routes
 app.use("/user", userRoutes);
 
 
+app.use((err, req, res, next) => {
+    
+    if (err.errors) {   // mongoose error
+        let message = ""
+
+        Object.keys(err.errors).forEach(key => {
+            if (message.length > 0)
+                message += "\n";
+
+            message += err.errors[key].message;
+        });
+
+        return res.status(400).json({ message });
+    }
+
+    res.status(400).json(err)
+})
 app.listen(PORT, () => {
     console.log(`App is running on ${PORT}`);
 });
