@@ -18,9 +18,13 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, "Wachtwoord is verplicht"],
-        select: false
+        select: false,
+        minlength: 3,
+        maxlength: 256
     },
-    admin: Boolean
+    admin: Boolean,
+    joinedTime: Number,
+    picImgurId: String
 });
 
 userSchema.path("name").validate(async function (name) {

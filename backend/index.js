@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./config/db");
 const app = express();
+const https = require("http").Server(app);
+const io = require('socket.io')(https);
+require("./chat-socket")(io);
 
 
 //configure database and mongoose
@@ -32,7 +35,6 @@ app.use(morgan("dev")); // configire morgan
 const userRoutes = require("./route/user"); //bring in our user routes
 app.use("/user", userRoutes);
 
-
 app.use((err, req, res, next) => {
     
     if (err.errors) {   // mongoose error
@@ -50,6 +52,6 @@ app.use((err, req, res, next) => {
 
     res.status(400).json(err)
 })
-app.listen(PORT, () => {
+https.listen(PORT, () => {
     console.log(`App is running on ${PORT}`);
 });

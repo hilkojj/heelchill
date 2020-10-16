@@ -8,7 +8,8 @@ router.post("/register", async (req, res, next) => {
         const user = new User({
             name: req.body.name,
             email: req.body.email || null,
-            password: req.body.password || Math.random().toString(36).substr(2, 8)
+            password: req.body.password || Math.random().toString(36).substr(2, 8),
+            joinedTime: Date.now() / 1000 | 0
         });
         await user.save();
         let data = await User.findById(user.id || console.error("no id"));
