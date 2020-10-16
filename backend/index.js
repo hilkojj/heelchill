@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require("express");
 const PORT = process.env.PORT || 4000;
 const morgan = require("morgan");
@@ -34,6 +35,10 @@ app.use(morgan("dev")); // configire morgan
 
 const userRoutes = require("./route/user"); //bring in our user routes
 app.use("/user", userRoutes);
+
+// The webapp is served over every other route:
+app.use("/", express.static(path.join(__dirname, "../frontend/dist/")))
+app.use("/*", (req, res) => res.sendFile(path.resolve("../frontend/dist/index.html")))
 
 app.use((err, req, res, next) => {
     

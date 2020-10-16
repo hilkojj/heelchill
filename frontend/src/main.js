@@ -10,9 +10,7 @@ import { uniLayerGroup, uniCarWash } from 'vue-unicons/src/icons'
 Unicon.add([uniLayerGroup, uniCarWash]);
 Vue.use(Unicon);
 
-const base = axios.create({
-    baseURL: "http://localhost:4000"
-});
+const base = axios.create();
 
 Vue.prototype.$http = base;
 Vue.config.productionTip = false

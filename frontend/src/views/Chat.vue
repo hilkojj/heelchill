@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       messages: {}, // {id: message}
-      socket: window.io("localhost:4000"),
+      socket: window.io("/"),
     };
   },
 
